@@ -1,4 +1,5 @@
 const getRepositories = require("./getRepositories");
+const cloneRepository = require("./cloneRepository");
 
 const cloneAll = async (username) => {
   console.log(`Cloning all repositories for ${username}...`);
