@@ -3,7 +3,7 @@ const cloneRepository = require("./cloneRepository");
 const logSpinner = require("./logSpinner");
 
 const cloneAll = async (username) => {
-  logSpinner(`Cloning all repositories for ${username}...`);
+  console.log(`Cloning all repositories for ${username}...`);
   const repos = await getRepositories(username);
   console.log(`Found ${repos.length} repositories:`);
   let i = 1;
