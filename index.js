@@ -1,21 +1,5 @@
-const { exec } = require("child_process");
 const argv = process.argv.slice(2);
 const cloneAll = require("./utils/cloneAll");
-
-const cloneRepository = async (username, repo) => {
-  return new Promise((resolve, reject) => {
-    exec(
-      `git clone https://github.com/${username}/${repo}`,
-      (err, stdout, stderr) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
-      }
-    );
-  });
-};
 
 if (argv[0] === "clone") {
   const username = argv[1];
