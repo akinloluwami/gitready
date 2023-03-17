@@ -1,5 +1,6 @@
 const { exec } = require("child_process");
 const argv = process.argv.slice(2);
+const getRepositories = require("./utils/getRepositories");
 
 const cloneAll = async (username) => {
   console.log(`Cloning all repositories for ${username}...`);
