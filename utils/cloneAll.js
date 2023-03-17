@@ -8,8 +8,11 @@ const cloneAll = async (username) => {
   console.log(`Found ${repos.length} repositories:`);
   let i = 1;
   for (const repo of repos) {
-    logSpinner(`Cloning ${repo.name} (${i}/${repos.length})...`);
+    const spinnerCleanup = logSpinner(
+      `Cloning ${repo.name} (${i}/${repos.length})...`
+    );
     await cloneRepository(username, repo.name);
+    spinnerCleanup();
     console.log(`Done cloning ${repo.name}`);
     i++;
   }
