@@ -1,6 +1,6 @@
-import { argv } from "process";
-import cloneAll from "./utils/cloneAll";
-import cloneRepository from "./utils/cloneRepository";
+const { argv } = require("process");
+const cloneAll = require("./utils/cloneAll");
+const cloneRepository = require("./utils/cloneRepository");
 
 if (argv[2] === "clone") {
   const username = argv[3];

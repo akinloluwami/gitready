@@ -1,7 +1,7 @@
-import { exec } from "child_process";
+const { exec } = require("child_process");
 
-const cloneRepository = async (username: string, repo: string) => {
-  return new Promise<void>((resolve, reject) => {
+const cloneRepository = async (username, repo) => {
+  return new Promise((resolve, reject) => {
     exec(
       `git clone https://github.com/${username}/${repo}`,
       (err, stdout, stderr) => {
@@ -15,4 +15,4 @@ const cloneRepository = async (username: string, repo: string) => {
   });
 };
 
-export default cloneRepository;
+module.exports = cloneRepository;
