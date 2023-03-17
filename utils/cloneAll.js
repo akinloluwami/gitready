@@ -14,4 +14,4 @@ const cloneAll = async (username) => {
   console.log(`Done cloning all repositories for ${username}`);
 };
 
-export default cloneAll;
+module.exports = cloneAll;
