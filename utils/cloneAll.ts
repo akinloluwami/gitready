@@ -1,8 +1,8 @@
-const getRepositories = require("./getRepositories");
-const cloneRepository = require("./cloneRepository");
-const logSpinner = require("./logSpinner");
+import getRepositories from "./getRepositories";
+import cloneRepository from "./cloneRepository";
+import logSpinner from "./logSpinner";
 
-const cloneAll = async (username) => {
+const cloneAll = async (username: string) => {
   logSpinner(`Cloning all repositories for ${username}...`);
   const repos = await getRepositories(username);
   console.log(`Found ${repos.length} repositories:`);
@@ -16,4 +16,4 @@ const cloneAll = async (username) => {
   console.log(`Done cloning all repositories for ${username}`);
 };
 
-module.exports = cloneAll;
+export default cloneAll;
