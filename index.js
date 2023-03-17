@@ -31,19 +31,16 @@ const cloneRepository = async (username, repo) => {
 };
 
 const getRepositories = async (username) => {
-  return new Promise((resolve, reject) => {
-    exec(
-      `curl -s https://api.github.com/users/${username}/repos | jq '.[] | {name: .name}'`,
-      (err, stdout, stderr) => {
-        if (err) {
-          reject(err);
-        } else {
-          const repos = JSON.parse(stdout);
-          resolve(repos);
-        }
-      }
+  try {
+    const response = await axios.get(
+      `https://api.github.com/users/${username}/repos`
     );
-  });
+    const repos = response.data.map((repo) => repo.name);
+    return repos;
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Failed to fetch repositories for ${username}`);
+  }
 };
 
 if (argv[0] === "clone") {
