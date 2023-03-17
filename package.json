@@ -1,16 +1,12 @@
 {
   "name": "gitready",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "A CLI tool to clone multiple GitHub repositories at once",
+  "bin": {
+    "gitpro": "./index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "chmod": "^0.2.1",
-    "simple-git": "^3.17.0"
+    "commander": "^8.3.0",
+    "simple-git": "^2.19.1"
   }
 }
