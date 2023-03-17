@@ -2,20 +2,6 @@ const { exec } = require("child_process");
 const argv = process.argv.slice(2);
 const getRepositories = require("./utils/getRepositories");
 
-const cloneAll = async (username) => {
-  console.log(`Cloning all repositories for ${username}...`);
-  const repos = await getRepositories(username);
-  console.log(`Found ${repos.length} repositories:`);
-  let i = 1;
-  for (const repo of repos) {
-    console.log(`Cloning ${repo.name} (${i}/${repos.length})...`);
-    await cloneRepository(username, repo.name);
-    console.log(`Done cloning ${repo.name}`);
-    i++;
-  }
-  console.log(`Done cloning all repositories for ${username}`);
-};
-
 const cloneRepository = async (username, repo) => {
   return new Promise((resolve, reject) => {
     exec(
