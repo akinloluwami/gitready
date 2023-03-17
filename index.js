@@ -23,8 +23,19 @@ program
 
     for (const repo of repos) {
       console.log(`Cloning ${repo}...`);
-      await git.clone(`https://github.com/${username}/${repo}.git`);
-      console.log(`Done cloning ${repo}`);
+      try {
+        await git.clone(`https://github.com/${username}/${repo}.git`);
+        console.log(`Done cloning ${repo}`);
+      } catch (err) {
+        if (
+          err instanceof simpleGit.GitError &&
+          err.message.includes("Repository not found")
+        ) {
+          console.error(`Error: Repository ${repo} not found`);
+        } else {
+          console.error(err);
+        }
+      }
     }
 
     const endTime = performance.now();
