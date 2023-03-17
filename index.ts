@@ -1,6 +1,6 @@
 import { argv } from "process";
-import cloneAll from "./utils/cloneAll";
-import cloneRepository from "./utils/cloneRepository";
+import cloneAll from "./src/utils/cloneAll";
+import cloneRepository from "./src/utils/cloneRepository";
 
 if (argv[2] === "clone") {
   const username = argv[3];
