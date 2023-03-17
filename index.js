@@ -8,7 +8,6 @@ const getRepositories = async (username) => {
       `https://api.github.com/users/${username}/repos`
     );
     const repos = response.data.filter((repo) => repo.name).map((repo) => repo);
-    console.log(repos);
     return repos;
   } catch (error) {
     console.error(error);
