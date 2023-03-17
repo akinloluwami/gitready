@@ -36,7 +36,10 @@ const getRepositories = async (username) => {
     const response = await axios.get(
       `https://api.github.com/users/${username}/repos`
     );
-    const repos = response.data.map((repo) => repo.name);
+    const repos = response.data
+      .filter((repo) => repo.name)
+      .map((repo) => repo.name);
+    console.log(repos);
     return repos;
   } catch (error) {
     console.error(error);
