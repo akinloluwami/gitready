@@ -1,14 +1,14 @@
-const argv = process.argv.slice(2);
-const cloneAll = require("./utils/cloneAll");
-const cloneRepository = require("./utils/cloneRepository");
+import { argv } from "process";
+import cloneAll from "./utils/cloneAll";
+import cloneRepository from "./utils/cloneRepository";
 
-if (argv[0] === "clone") {
-  const username = argv[1];
+if (argv[2] === "clone") {
+  const username = argv[3];
   const allFlagIndex = argv.indexOf("--all");
   if (allFlagIndex > -1) {
     cloneAll(username);
   } else {
-    const repos = argv.slice(2);
+    const repos = argv.slice(4);
     for (const repo of repos) {
       cloneRepository(username, repo)
         .then(() => {
