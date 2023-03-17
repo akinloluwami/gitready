@@ -12,3 +12,5 @@ const getRepositories = async (username) => {
     throw new Error(`Failed to fetch repositories for ${username}`);
   }
 };
+
+export default getRepositories;
