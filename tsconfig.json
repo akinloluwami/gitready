@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "commonjs",
+    "module": "ES2020",
     "sourceMap": true
   },
-  "include": ["src"]
+  "include": ["src", "src/index.ts"]
 }
