@@ -1,6 +1,6 @@
 const { exec } = require("child_process");
 const argv = process.argv.slice(2);
-const getRepositories = require("./utils/getRepositories");
+const cloneAll = require("./utils/cloneAll");
 
 const cloneRepository = async (username, repo) => {
   return new Promise((resolve, reject) => {
