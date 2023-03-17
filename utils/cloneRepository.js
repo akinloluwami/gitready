@@ -15,4 +15,4 @@ const cloneRepository = async (username, repo) => {
   });
 };
 
-export default cloneRepository;
+module.exports = cloneRepository;

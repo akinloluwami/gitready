@@ -13,4 +13,4 @@ const getRepositories = async (username) => {
   }
 };
 
-export default getRepositories;
+module.exports = getRepositories;
