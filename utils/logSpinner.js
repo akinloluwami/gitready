@@ -1,7 +1,7 @@
 const cliSpinners = require("cli-spinners");
 
 const logSpinner = (text) => {
-  console.log(`${cliSpinners.arrow3} ${text}`);
+  console.log(`${cliSpinners.earth} ${text}`);
 };
 
 module.exports = logSpinner;
