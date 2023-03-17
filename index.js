@@ -1,46 +1,66 @@
-#!/usr/bin/env node
+const { exec } = require("child_process");
+const argv = process.argv.slice(2);
 
-const { performance } = require("perf_hooks");
-const program = require("commander");
-const simpleGit = require("simple-git");
+const cloneAll = async (username) => {
+  console.log(`Cloning all repositories for ${username}...`);
+  const repos = await getRepositories(username);
+  console.log(`Found ${repos.length} repositories:`);
+  let i = 1;
+  for (const repo of repos) {
+    console.log(`Cloning ${repo.name} (${i}/${repos.length})...`);
+    await cloneRepository(username, repo.name);
+    console.log(`Done cloning ${repo.name}`);
+    i++;
+  }
+  console.log(`Done cloning all repositories for ${username}`);
+};
 
-program
-  .version("1.0.0")
-  .command("clone <username> [repos...]")
-  .action(async (username, repos) => {
-    const startTime = performance.now();
-    console.log(`Starting to clone ${repos.length} repositories...`);
-
-    const git = simpleGit();
-    git.outputHandler((command, stdout, stderr) => {
-      stdout.on("data", (chunk) => {
-        const logLine = chunk.toString().trim();
-        if (logLine.startsWith("Cloning into")) {
-          console.log(`${logLine} (${git.progress() * 100}%)`);
-        }
-      });
-    });
-
-    for (const repo of repos) {
-      console.log(`Cloning ${repo}...`);
-      try {
-        await git.clone(`https://github.com/${username}/${repo}.git`);
-        console.log(`Done cloning ${repo}`);
-      } catch (err) {
-        if (
-          err instanceof simpleGit.GitError &&
-          err.message.includes("Repository not found")
-        ) {
-          console.error(`Error: Repository ${repo} not found`);
+const cloneRepository = async (username, repo) => {
+  return new Promise((resolve, reject) => {
+    exec(
+      `git clone https://github.com/${username}/${repo}`,
+      (err, stdout, stderr) => {
+        if (err) {
+          reject(err);
         } else {
-          console.error(err);
+          resolve();
         }
       }
-    }
-
-    const endTime = performance.now();
-    const timeTaken = ((endTime - startTime) / 1000).toFixed(2);
-    console.log(`Done cloning all in ${timeTaken} seconds`);
+    );
   });
+};
 
-program.parse(process.argv);
+const getRepositories = async (username) => {
+  return new Promise((resolve, reject) => {
+    exec(
+      `curl -s https://api.github.com/users/${username}/repos | jq '.[] | {name: .name}'`,
+      (err, stdout, stderr) => {
+        if (err) {
+          reject(err);
+        } else {
+          const repos = JSON.parse(stdout);
+          resolve(repos);
+        }
+      }
+    );
+  });
+};
+
+if (argv[0] === "clone") {
+  const username = argv[1];
+  const allFlagIndex = argv.indexOf("--all");
+  if (allFlagIndex > -1) {
+    cloneAll(username);
+  } else {
+    const repos = argv.slice(2);
+    for (const repo of repos) {
+      cloneRepository(username, repo)
+        .then(() => {
+          console.log(`Done cloning ${repo}`);
+        })
+        .catch((err) => {
+          console.error(`Error cloning ${repo}: ${err}`);
+        });
+    }
+  }
+}
