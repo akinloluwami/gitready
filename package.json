@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A CLI tool to clone multiple GitHub repositories at once",
   "bin": {
-    "gitpro": "dist/index.js"
+    "gitpro": "index.js"
   },
   "scripts": {
     "build": "tsc"
