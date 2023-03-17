@@ -2,6 +2,22 @@ const { exec } = require("child_process");
 const axios = require("axios");
 const argv = process.argv.slice(2);
 
+const getRepositories = async (username) => {
+  try {
+    const response = await axios.get(
+      `https://api.github.com/users/${username}/repos`
+    );
+    const repos = response.data
+      .filter((repo) => repo.name)
+      .map((repo) => repo.name);
+    console.log(repos);
+    return repos;
+  } catch (error) {
+    console.error(error);
+    throw new Error(`Failed to fetch repositories for ${username}`);
+  }
+};
+
 const cloneAll = async (username) => {
   console.log(`Cloning all repositories for ${username}...`);
   const repos = await getRepositories(username);
@@ -29,22 +45,6 @@ const cloneRepository = async (username, repo) => {
       }
     );
   });
-};
-
-const getRepositories = async (username) => {
-  try {
-    const response = await axios.get(
-      `https://api.github.com/users/${username}/repos`
-    );
-    const repos = response.data
-      .filter((repo) => repo.name)
-      .map((repo) => repo.name);
-    console.log(repos);
-    return repos;
-  } catch (error) {
-    console.error(error);
-    throw new Error(`Failed to fetch repositories for ${username}`);
-  }
 };
 
 if (argv[0] === "clone") {
