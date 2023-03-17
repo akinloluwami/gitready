@@ -1,7 +1,7 @@
-const cliSpinners = require("cli-spinners");
+const loading = require("loading-cli");
 
 const logSpinner = (text) => {
-  console.log(`${cliSpinners.earth} ${text}`);
+  const load = loading(`${text}`).start();
 };
 
 module.exports = logSpinner;
