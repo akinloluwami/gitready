@@ -1,5 +1,6 @@
 const argv = process.argv.slice(2);
 const cloneAll = require("./utils/cloneAll");
+const cloneRepository = require("./utils/cloneRepository");
 
 if (argv[0] === "clone") {
   const username = argv[1];
