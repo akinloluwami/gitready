@@ -1,11 +1,6 @@
-#!/usr/bin/env node
-// const { argv } = require("process");
-// const cloneAll = require("./utils/cloneAll");
-// const cloneRepository = require("./utils/cloneRepository");
-
-import { argv } from "process";
-import cloneRepository from "./utils/cloneRepository";
-import cloneAll from "./utils/cloneAll.mjs.js.js.js.js.js.js";
+const { argv } = require("process");
+const cloneAll = require("./utils/cloneAll");
+const cloneRepository = require("./utils/cloneRepository");
 
 if (argv[2] === "clone") {
   const username = argv[3];

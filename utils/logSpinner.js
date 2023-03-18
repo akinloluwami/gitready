@@ -1,22 +1,18 @@
-"use strict";
+const frames = ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"];
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-var frames = ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"];
-var logSpinner = function logSpinner(text) {
-  var i = 0;
-  var spinnerInterval = setInterval(function () {
-    process.stdout.write("\r".concat(frames[i], " ").concat(text));
+const logSpinner = (text) => {
+  let i = 0;
+  const spinnerInterval = setInterval(() => {
+    process.stdout.write(`\r${frames[i]} ${text}`);
     i = (i + 1) % frames.length;
   }, 200);
-  return function () {
+
+  return () => {
     clearTimeout(spinnerInterval);
-    process.stdout.write("\r".concat(" ".repeat(frames[frames.length - 1].length), "\r").concat(text));
+    process.stdout.write(
+      `\r${" ".repeat(frames[frames.length - 1].length)}\r${text}`
+    );
   };
 };
 
-// module.exports = logSpinner;
-var _default = logSpinner;
-exports["default"] = _default;
+module.exports = logSpinner;
