@@ -1,4 +1,4 @@
-const frames = [">", ">>", ">>>"];
+const frames = ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"];
 
 const logSpinner = (text) => {
   let i = 0;
