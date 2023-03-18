@@ -1,8 +1,13 @@
-const getRepositories = require("./getRepositories");
-const cloneRepository = require("./cloneRepository");
-const logSpinner = require("./logSpinner");
-const path = require("path");
-const fs = require("fs");
+// const getRepositories = require("./getRepositories");
+// const cloneRepository = require("./cloneRepository");
+// const logSpinner = require("./logSpinner");
+// const path = require("path");
+// const fs = require("fs");
+
+import path from "path";
+import cloneRepository from "./cloneRepository";
+import logSpinner from "./logSpinner";
+import fs from "fs";
 
 const cloneAll = async (username) => {
   console.log(`Cloning all repositories for ${username}...`);
@@ -36,4 +41,6 @@ const cloneAll = async (username) => {
   console.log(`Done cloning all repositories for ${username}`);
 };
 
-module.exports = cloneAll;
+// module.exports = cloneAll;
+
+export default cloneAll;
