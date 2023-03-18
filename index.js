@@ -5,7 +5,7 @@
 
 import { argv } from "process";
 import cloneRepository from "./utils/cloneRepository";
-import cloneAll from "./utils/cloneAll";
+import cloneAll from "./utils/cloneAll.mjs";
 
 if (argv[2] === "clone") {
   const username = argv[3];
