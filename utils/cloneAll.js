@@ -26,7 +26,7 @@ const cloneAll = async (username) => {
     try {
       await cloneRepository(username, repo.name);
       clonedRepos.push(repo.name);
-      console.log(`Done cloning ${repo.name}\n`);
+      console.log(`✅Done cloning ${repo.name}\n`);
 
       process.stdout.write(`\r${" ".repeat(spinnerMsg.length)}\r`);
     } catch (error) {
