@@ -20,13 +20,15 @@ const cloneAll = async (username) => {
       continue;
     }
 
-    const spinnerCleanup = logSpinner(
-      `Cloning ${repo.name} (${i + 1}/${repos.length})...`
-    );
+    const spinnerMsg = `Cloning ${repo.name} (${i + 1}/${repos.length})...`;
+    const spinnerCleanup = logSpinner(spinnerMsg);
+
     try {
       await cloneRepository(username, repo.name);
       clonedRepos.push(repo.name);
-      console.log(`Done cloning ${repo.name}`);
+      console.log(`Done cloning ${repo.name}\n`);
+
+      process.stdout.write(`\r${" ".repeat(spinnerMsg.length)}\r`);
     } catch (error) {
       console.error(`Failed to clone ${repo.name}: `, error.message);
     } finally {
