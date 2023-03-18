@@ -9,7 +9,7 @@ const cloneAll = async (username) => {
   const repos = await getRepositories(username);
   console.log(`Found ${repos.length} repositories:`);
 
-  const clonedRepos = []; // to keep track of cloned repositories
+  const clonedRepos = [];
 
   for (let i = 0; i < repos.length; i++) {
     const repo = repos[i];
@@ -20,18 +20,13 @@ const cloneAll = async (username) => {
       continue;
     }
 
-    const spinnerMsg = `Cloning ${repo.name} (${i + 1}/${repos.length})...`;
-    const spinnerCleanup = logSpinner(spinnerMsg);
-
+    const spinnerCleanup = logSpinner(
+      `Cloning ${repo.name} (${i + 1}/${repos.length})...`
+    );
     try {
       await cloneRepository(username, repo.name);
       clonedRepos.push(repo.name);
-      console.log(`✅ Done cloning ${repo.name}\n`);
-
-      // Clear the spinner message from the console
-      setTimeout(() => {
-        process.stdout.write(`\r${" ".repeat(spinnerMsg.length)}\r`);
-      }, 500);
+      console.log(`Done cloning ${repo.name}`);
     } catch (error) {
       console.error(`Failed to clone ${repo.name}: `, error.message);
     } finally {
