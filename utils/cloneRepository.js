@@ -1,6 +1,10 @@
-const { exec } = require("child_process");
-const path = require("path");
-const fs = require("fs");
+// const { exec } = require("child_process");
+// const path = require("path");
+// const fs = require("fs");
+
+import { exec } from "child_process";
+import path from "path";
+import fs from "fs";
 
 const cloneRepository = async (username, repo) => {
   const repoPath = path.join(process.cwd(), repo);
@@ -27,4 +31,5 @@ const cloneRepository = async (username, repo) => {
   });
 };
 
-module.exports = cloneRepository;
+// module.exports = cloneRepository;
+export default cloneRepository;
