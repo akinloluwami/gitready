@@ -1,8 +1,10 @@
-const axios = require("axios");
+// const got = require("got-fetch");
+
+import fetch from "got-fetch";
 
 const getRepositories = async (username) => {
   try {
-    const response = await axios.get(
+    const response = await fetch(
       `https://api.github.com/users/${username}/repos`
     );
     const repos = response.data.filter((repo) => repo.name).map((repo) => repo);
@@ -13,4 +15,5 @@ const getRepositories = async (username) => {
   }
 };
 
-module.exports = getRepositories;
+// module.exports = getRepositories;
+export default getRepositories;
