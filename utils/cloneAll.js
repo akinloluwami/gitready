@@ -1,21 +1,39 @@
 const getRepositories = require("./getRepositories");
 const cloneRepository = require("./cloneRepository");
 const logSpinner = require("./logSpinner");
+const path = require("path");
+const fs = require("fs");
 
 const cloneAll = async (username) => {
   console.log(`Cloning all repositories for ${username}...`);
   const repos = await getRepositories(username);
   console.log(`Found ${repos.length} repositories:`);
-  let i = 1;
-  for (const repo of repos) {
+
+  const clonedRepos = []; // to keep track of cloned repositories
+
+  for (let i = 0; i < repos.length; i++) {
+    const repo = repos[i];
+    const repoPath = path.join(process.cwd(), repo.name);
+
+    if (fs.existsSync(repoPath)) {
+      console.log(`${repo.name} has already been cloned`);
+      continue;
+    }
+
     const spinnerCleanup = logSpinner(
-      `Cloning ${repo.name} (${i}/${repos.length})...`
+      `Cloning ${repo.name} (${i + 1}/${repos.length})...`
     );
-    await cloneRepository(username, repo.name);
-    spinnerCleanup();
-    console.log(`Done cloning ${repo.name}`);
-    i++;
+    try {
+      await cloneRepository(username, repo.name);
+      clonedRepos.push(repo.name);
+      console.log(`Done cloning ${repo.name}`);
+    } catch (error) {
+      console.error(`Failed to clone ${repo.name}: `, error.message);
+    } finally {
+      spinnerCleanup();
+    }
   }
   console.log(`Done cloning all repositories for ${username}`);
 };
+
 module.exports = cloneAll;
