@@ -15,4 +15,5 @@ const logSpinner = (text) => {
   };
 };
 
-module.exports = logSpinner;
+// module.exports = logSpinner;
+export default logSpinner;
